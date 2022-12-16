@@ -2,15 +2,12 @@ name: Build and test with Maven
 
 on:
   push:
-    branches: 
+    branches:
       - main
-      - releases/*
-      - feature/*
-      - bugfix/*
   pull_request:
     branches:
       - main
-  workflow_dispatch:    
+  workflow_dispatch:
 
 jobs:
   build:
@@ -18,18 +15,27 @@ jobs:
     runs-on: ubuntu-latest
 
     steps:
-    - name: Checkout
-      uses: actions/checkout@v3
-    
-    - name: Set up JDK 11
-      uses: actions/setup-java@v3
-      with:
-        java-version: '11'
-        distribution: 'temurin'
-        cache: maven
+      - name: Checkout
+        uses: actions/checkout@v3
 
-    - name: Build with Maven
-      run: ./mvnw -B package
+      - name: Set up JDK 11
+        uses: actions/setup-java@v3
+        with:
+          java-version: '11'
+          distribution: 'temurin'
+          cache: maven
 
-    - name: Update dependency graph
-      uses: advanced-security/maven-dependency-submission-action@multi-module
+      - name: Compile
+        run: ./mvnw -B compile
+
+      - name: Test
+        run: ./mvnw -B test
+
+      - name: Verify
+        run: ./mvnw -B verify -DskipTests
+
+      - name: Package
+        run: ./mvnw -B package -DskipTests
+
+      - name: Update dependency graph
+        uses: advanced-security/maven-dependency-submission-action@multi-module

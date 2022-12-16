@@ -208,4 +208,16 @@
 		</plugins>
 	</build>
 
+	<scm>
+		<developerConnection>scm:git:https://github.com/dan-osterrath/quarkus-smallrye-graphql-client-generator.git</developerConnection>
+		<tag>HEAD</tag>
+	</scm>
+	<distributionManagement>
+		<repository>
+			<id>github</id>
+			<name>GitHub</name>
+			<url>https://maven.pkg.github.com/dan-osterrath/quarkus-smallrye-graphql-client-generator</url>
+		</repository>
+	</distributionManagement>
+
 </project>
