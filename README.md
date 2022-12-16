@@ -1,6 +1,7 @@
 # Quarkus SmallRye GraphQL Client Generator
 
 [![Build and test with Maven](https://github.com/dan-osterrath/quarkus-smallrye-graphql-client-generator/actions/workflows/maven.yml/badge.svg?branch=main)](https://github.com/dan-osterrath/quarkus-smallrye-graphql-client-generator/actions/workflows/maven.yml)
+[![Publish Maven release](https://github.com/dan-osterrath/quarkus-smallrye-graphql-client-generator/actions/workflows/maven-release.yml/badge.svg?branch=main)](https://github.com/dan-osterrath/quarkus-smallrye-graphql-client-generator/actions/workflows/maven-release.yml)
 
 This project is a generator
 for [SmallRye GraphQL Clients used in Quarkus](https://quarkus.io/guides/smallrye-graphql-client). It provides an

@@ -37,5 +37,17 @@ jobs:
       - name: Package
         run: ./mvnw -B package -DskipTests
 
+      - name: Configure GitHub Actions user
+        if: github.event_name == 'push' || github.event_name == 'workflow_dispatch'
+        run: |
+          git config user.email "actions@github.com"
+          git config user.name "GitHub Actions"
+
+      - name: Publish release
+        if: github.event_name == 'push' || github.event_name == 'workflow_dispatch'
+        run: ./mvnw -B release:prepare release:perform
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+
       - name: Update dependency graph
         uses: advanced-security/maven-dependency-submission-action@multi-module
