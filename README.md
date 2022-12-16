@@ -1,9 +1,9 @@
-# Quarkus Smallrye GraphQL Client Generator
+# Quarkus SmallRye GraphQL Client Generator
 
 [![Build and test with Maven](https://github.com/dan-osterrath/quarkus-smallrye-graphql-client-generator/actions/workflows/maven.yml/badge.svg?branch=main)](https://github.com/dan-osterrath/quarkus-smallrye-graphql-client-generator/actions/workflows/maven.yml)
 
 This project is a generator
-for [Smallrye GraphQL Clients used in Quarkus](https://quarkus.io/guides/smallrye-graphql-client). It provides an
+for [SmallRye GraphQL Clients used in Quarkus](https://quarkus.io/guides/smallrye-graphql-client). It provides an
 annotation processor that generates an interface for
 a [typesafe client](https://quarkus.io/guides/smallrye-graphql-client#using-the-typesafe-client) including all model
 objects.
@@ -133,3 +133,7 @@ quarkus.smallrye-graphql-client.DynamicMyGraphQLServiceApi.url=http://my-service
 
 See the [Quarkus documentation](https://quarkus.io/guides/smallrye-graphql-client#using-the-dynamic-client) for more
 details.
+
+## Credits
+
+This project is inspired by the experimental [SmallRye GraphQL client generator ](https://github.com/smallrye/smallrye-graphql/tree/main/client/generator).
