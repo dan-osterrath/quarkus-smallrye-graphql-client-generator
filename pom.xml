@@ -4,7 +4,7 @@
 
 	<groupId>net.packsam</groupId>
 	<artifactId>quarkus-smallrye-graphql-client-generator-parent</artifactId>
-	<version>0.0.2</version>
+	<version>0.0.3-SNAPSHOT</version>
 	<packaging>pom</packaging>
 
 	<name>Quarkus SmallRye GraphQL client generator</name>
@@ -223,7 +223,7 @@
 
 	<scm>
 		<developerConnection>scm:git:https://github.com/dan-osterrath/quarkus-smallrye-graphql-client-generator.git</developerConnection>
-		<tag>quarkus-smallrye-graphql-client-generator-parent-0.0.2</tag>
+		<tag>HEAD</tag>
 	</scm>
 	<distributionManagement>
 		<repository>
