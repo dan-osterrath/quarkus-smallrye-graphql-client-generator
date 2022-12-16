@@ -9,10 +9,8 @@ import java.lang.annotation.Target;
 /**
  * Annotation for specifying the URI of the GraphQL schema.
  * Examples:
- * <pre>{@code
- * @GraphQLSchema("resource:schema.graphql")
- * @GraphQLSchema("file:src/main/resources/schema.graphql")
- * }</pre>
+ * <pre>{@code @GraphQLSchema("resource:schema.graphql") }</pre>
+ * <pre>{@code @GraphQLSchema("file:src/main/resources/schema.graphql") }</pre>
  */
 @Retention(RetentionPolicy.SOURCE)
 @Target(ElementType.TYPE)
