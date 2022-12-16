@@ -18,6 +18,8 @@ import java.lang.annotation.Target;
 public @interface GraphQLSchema {
 	/**
 	 * Schema location. Has to be prefixed with a valid protocol like <code>file:</code>, <code>https:</code> or <code>resource:</code>.
+	 *
+	 * @return schema location
 	 */
 	String value();
 }

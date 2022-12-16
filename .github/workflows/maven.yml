@@ -45,7 +45,7 @@ jobs:
 
       - name: Publish release
         if: github.event_name == 'push' || github.event_name == 'workflow_dispatch'
-        run: ./mvnw -B release:prepare release:perform
+        run: ./mvnw -B release:prepare release:perform -DautoVersionSubmodules=true
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
 
