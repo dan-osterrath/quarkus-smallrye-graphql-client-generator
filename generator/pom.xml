@@ -1,0 +1,38 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project xmlns="http://maven.apache.org/POM/4.0.0"
+         xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+         xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
+	<modelVersion>4.0.0</modelVersion>
+	<parent>
+		<groupId>net.packsam</groupId>
+		<artifactId>quarkus-smallrye-graphql-client-generator-parent</artifactId>
+		<version>0.0.1-SNAPSHOT</version>
+		<relativePath>../pom.xml</relativePath>
+	</parent>
+
+	<artifactId>quarkus-smallrye-graphql-client-generator</artifactId>
+
+	<dependencies>
+		<dependency>
+			<groupId>io.smallrye</groupId>
+			<artifactId>smallrye-graphql-client-api</artifactId>
+		</dependency>
+		<dependency>
+			<groupId>com.graphql-java</groupId>
+			<artifactId>graphql-java</artifactId>
+		</dependency>
+		<dependency>
+			<groupId>org.projectlombok</groupId>
+			<artifactId>lombok</artifactId>
+		</dependency>
+		<dependency>
+			<groupId>com.google.auto.service</groupId>
+			<artifactId>auto-service</artifactId>
+		</dependency>
+		<dependency>
+			<groupId>org.freemarker</groupId>
+			<artifactId>freemarker</artifactId>
+		</dependency>
+	</dependencies>
+
+</project>

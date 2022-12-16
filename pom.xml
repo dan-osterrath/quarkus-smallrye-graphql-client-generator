@@ -1,0 +1,211 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+         xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
+	<modelVersion>4.0.0</modelVersion>
+
+	<groupId>net.packsam</groupId>
+	<artifactId>quarkus-smallrye-graphql-client-generator-parent</artifactId>
+	<version>0.0.1-SNAPSHOT</version>
+	<packaging>pom</packaging>
+
+	<name>Quarkus SmallRye GraphQL client generator</name>
+	<modules>
+		<module>generator</module>
+		<module>example</module>
+	</modules>
+
+	<properties>
+		<project.build.sourceEncoding>utf-8</project.build.sourceEncoding>
+
+		<project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
+		<project.reporting.outputEncoding>UTF-8</project.reporting.outputEncoding>
+
+		<maven.compiler.target>11</maven.compiler.target>
+		<maven.compiler.source>11</maven.compiler.source>
+		<maven.compiler.release>11</maven.compiler.release>
+		<maven.compiler.parameters>true</maven.compiler.parameters>
+
+		<quarkus.version>2.15.0.Final</quarkus.version>
+		<graphql-java.version>19.2</graphql-java.version>
+		<lombok.version>1.18.24</lombok.version>
+		<google-auto-service.version>1.0.1</google-auto-service.version>
+		<commons-io.version>2.11.0</commons-io.version>
+		<freemarker.version>2.3.31</freemarker.version>
+		<assertj-core.version>3.23.1</assertj-core.version>
+
+		<maven.version>3.8.6</maven.version>
+		<quarkus-plugin.version>${quarkus.version}</quarkus-plugin.version>
+		<maven-compiler-plugin.version>3.10.1</maven-compiler-plugin.version>
+		<maven-surefire-plugin.version>3.0.0-M7</maven-surefire-plugin.version>
+		<maven-failsafe-plugin.version>3.0.0-M7</maven-failsafe-plugin.version>
+		<maven-clean-plugin.version>3.2.0</maven-clean-plugin.version>
+		<maven-deploy-plugin.version>3.0.0</maven-deploy-plugin.version>
+		<maven-install-plugin.version>3.1.0</maven-install-plugin.version>
+		<maven-site-plugin.version>4.0.0-M4</maven-site-plugin.version>
+		<maven-enforcer-plugin.version>3.1.0</maven-enforcer-plugin.version>
+		<maven-jar-plugin.version>3.3.0</maven-jar-plugin.version>
+		<maven-resources-plugin.version>3.3.0</maven-resources-plugin.version>
+	</properties>
+
+	<dependencyManagement>
+		<dependencies>
+			<dependency>
+				<groupId>io.quarkus</groupId>
+				<artifactId>quarkus-bom</artifactId>
+				<version>${quarkus.version}</version>
+				<type>pom</type>
+				<scope>import</scope>
+			</dependency>
+			<dependency>
+				<groupId>com.graphql-java</groupId>
+				<artifactId>graphql-java</artifactId>
+				<version>${graphql-java.version}</version>
+			</dependency>
+			<dependency>
+				<groupId>org.projectlombok</groupId>
+				<artifactId>lombok</artifactId>
+				<version>${lombok.version}</version>
+				<scope>provided</scope>
+			</dependency>
+			<dependency>
+				<groupId>com.google.auto.service</groupId>
+				<artifactId>auto-service</artifactId>
+				<version>${google-auto-service.version}</version>
+				<scope>provided</scope>
+			</dependency>
+			<dependency>
+				<groupId>commons-io</groupId>
+				<artifactId>commons-io</artifactId>
+				<version>${commons-io.version}</version>
+			</dependency>
+			<dependency>
+				<groupId>org.freemarker</groupId>
+				<artifactId>freemarker</artifactId>
+				<version>${freemarker.version}</version>
+			</dependency>
+
+			<dependency>
+				<groupId>org.assertj</groupId>
+				<artifactId>assertj-core</artifactId>
+				<version>${assertj-core.version}</version>
+				<scope>test</scope>
+			</dependency>
+		</dependencies>
+	</dependencyManagement>
+
+	<build>
+		<pluginManagement>
+			<plugins>
+				<plugin>
+					<groupId>org.apache.maven.plugins</groupId>
+					<artifactId>maven-clean-plugin</artifactId>
+					<version>${maven-clean-plugin.version}</version>
+				</plugin>
+
+				<plugin>
+					<groupId>org.apache.maven.plugins</groupId>
+					<artifactId>maven-resources-plugin</artifactId>
+					<version>${maven-resources-plugin.version}</version>
+				</plugin>
+
+				<plugin>
+					<groupId>org.apache.maven.plugins</groupId>
+					<artifactId>maven-compiler-plugin</artifactId>
+					<version>${maven-compiler-plugin.version}</version>
+				</plugin>
+
+				<plugin>
+					<groupId>org.apache.maven.plugins</groupId>
+					<artifactId>maven-jar-plugin</artifactId>
+					<version>${maven-jar-plugin.version}</version>
+				</plugin>
+
+				<plugin>
+					<groupId>org.apache.maven.plugins</groupId>
+					<artifactId>maven-surefire-plugin</artifactId>
+					<version>${maven-surefire-plugin.version}</version>
+				</plugin>
+
+				<plugin>
+					<groupId>org.apache.maven.plugins</groupId>
+					<artifactId>maven-failsafe-plugin</artifactId>
+					<version>${maven-failsafe-plugin.version}</version>
+				</plugin>
+
+				<plugin>
+					<groupId>org.apache.maven.plugins</groupId>
+					<artifactId>maven-install-plugin</artifactId>
+					<version>${maven-install-plugin.version}</version>
+				</plugin>
+
+				<plugin>
+					<groupId>org.apache.maven.plugins</groupId>
+					<artifactId>maven-deploy-plugin</artifactId>
+					<version>${maven-deploy-plugin.version}</version>
+				</plugin>
+
+				<plugin>
+					<groupId>org.apache.maven.plugins</groupId>
+					<artifactId>maven-site-plugin</artifactId>
+					<version>${maven-site-plugin.version}</version>
+				</plugin>
+
+				<plugin>
+					<groupId>org.apache.maven.plugins</groupId>
+					<artifactId>maven-enforcer-plugin</artifactId>
+					<version>${maven-enforcer-plugin.version}</version>
+				</plugin>
+			</plugins>
+		</pluginManagement>
+
+		<plugins>
+			<plugin>
+				<groupId>org.apache.maven.plugins</groupId>
+				<artifactId>maven-enforcer-plugin</artifactId>
+				<executions>
+					<execution>
+						<id>enforce-versions</id>
+						<goals>
+							<goal>enforce</goal>
+						</goals>
+						<configuration>
+							<rules>
+								<requireMavenVersion>
+									<version>${maven.version}</version>
+								</requireMavenVersion>
+								<requireJavaVersion>
+									<version>${maven.compiler.source}</version>
+								</requireJavaVersion>
+							</rules>
+						</configuration>
+					</execution>
+				</executions>
+			</plugin>
+
+			<plugin>
+				<groupId>org.apache.maven.plugins</groupId>
+				<artifactId>maven-compiler-plugin</artifactId>
+				<configuration>
+					<parameters>${maven.compiler.parameters}</parameters>
+				</configuration>
+			</plugin>
+
+			<plugin>
+				<groupId>org.apache.maven.plugins</groupId>
+				<artifactId>maven-failsafe-plugin</artifactId>
+				<executions>
+					<execution>
+						<id>run-integration-tests</id>
+						<phase>integration-test</phase>
+						<goals>
+							<goal>integration-test</goal>
+							<goal>verify</goal>
+						</goals>
+					</execution>
+				</executions>
+			</plugin>
+
+		</plugins>
+	</build>
+
+</project>
