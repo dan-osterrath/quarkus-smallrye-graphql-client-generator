@@ -1,7 +1,6 @@
 # Quarkus SmallRye GraphQL Client Generator
 
 [![Build and test with Maven](https://github.com/dan-osterrath/quarkus-smallrye-graphql-client-generator/actions/workflows/maven.yml/badge.svg?branch=main)](https://github.com/dan-osterrath/quarkus-smallrye-graphql-client-generator/actions/workflows/maven.yml)
-[![Publish Maven release](https://github.com/dan-osterrath/quarkus-smallrye-graphql-client-generator/actions/workflows/maven-release.yml/badge.svg?branch=main)](https://github.com/dan-osterrath/quarkus-smallrye-graphql-client-generator/actions/workflows/maven-release.yml)
 
 This project is a generator
 for [SmallRye GraphQL Clients used in Quarkus](https://quarkus.io/guides/smallrye-graphql-client). It provides an
@@ -15,20 +14,52 @@ the [dynamic client](https://quarkus.io/guides/smallrye-graphql-client#using-the
 
 ## Usage
 
+### Add dependency
+
+Add the following repository and dependency to your Maven project:
+
+ ```xml pom.xml
+
+<project>
+
+	<repositories>
+		<repository>
+			<id>jitpack.io</id>
+			<url>https://jitpack.io</url>
+		</repository>
+	</repositories>
+
+	<dependency>
+		<groupId>net.packsam</groupId>
+		<artifactId>quarkus-smallrye-graphql-client-generator</artifactId>
+		<version>0.0.3</version>
+	</dependency>
+
+</project>
+ ```
+
+See [Jitpack.io project page](https://jitpack.io/#dan-osterrath/quarkus-smallrye-graphql-client-generator/).
+
+### Add GraphQL schema
+
+Put the GraphQL schema into your classpath, i.e. into `src/main/resources/`. Alternatively, you can also fetch the
+schema from a remote server, but this is not recommended as this may result in failing compilations when there are
+connectivity issues.
+
+### Generate API
+
 Create an interface annotated with `@GraphQLSchema` and provide a URI to the GraphQL schema:
 
-```java MyGraphQLService.java
-
+ ```java MyGraphQLService.java
 @GraphQLSchema("resource:schema.graphql")
 interface MyGraphQLService {
 }
-```
+ ```
 
-The annotation processor will parse this schema at compile time and creates a Java interface for the API and all models
-in the same package as the annotated interface.
+During compilation the annotation processor will parse this schema at compile time and creates a Java interface for the
+API and all models in the same package as the annotated interface.
 
 ```java MyGraphQLServiceApi.java
-
 @GraphQLClientApi(configKey = "MyGraphQLServiceApi")
 @ApplicationScoped
 @Generated(
@@ -44,7 +75,6 @@ public interface MyGraphQLServiceApi {
 ```
 
 ```java User.java
-
 @Generated(
 		value = "net.packsam.quarkus.graphql.client.generator.Generator",
 		date = "2022-12-16T11:11:27.192760200+01:00[Europe/Berlin]"
@@ -61,7 +91,6 @@ public class User {
 ```
 
 ```java Filter.java
-
 @Generated(
 		value = "net.packsam.quarkus.graphql.client.generator.Generator",
 		date = "2022-12-16T11:11:27.192760200+01:00[Europe/Berlin]"
@@ -137,4 +166,5 @@ details.
 
 ## Credits
 
-This project is inspired by the experimental [SmallRye GraphQL client generator ](https://github.com/smallrye/smallrye-graphql/tree/main/client/generator).
+This project is inspired by the
+experimental [SmallRye GraphQL client generator ](https://github.com/smallrye/smallrye-graphql/tree/main/client/generator).
