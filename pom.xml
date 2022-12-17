@@ -30,6 +30,7 @@
 		<google-auto-service.version>1.0.1</google-auto-service.version>
 		<commons-io.version>2.11.0</commons-io.version>
 		<freemarker.version>2.3.31</freemarker.version>
+		<guava.version>31.1-jre</guava.version>
 		<assertj-core.version>3.23.1</assertj-core.version>
 
 		<maven.version>3.8.6</maven.version>
@@ -83,6 +84,11 @@
 				<groupId>org.freemarker</groupId>
 				<artifactId>freemarker</artifactId>
 				<version>${freemarker.version}</version>
+			</dependency>
+			<dependency>
+				<groupId>com.google.guava</groupId>
+				<artifactId>guava</artifactId>
+				<version>${guava.version}</version>
 			</dependency>
 
 			<dependency>

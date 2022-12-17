@@ -29,17 +29,17 @@ public class StarWarsServiceTest {
 	public void testLoadingAllFilms() throws Exception {
 		var document = document(
 				operation(OperationType.QUERY,
-						field(StarWarsServiceApi.QUERY_ALLFILMS,
+						field(StarWarsServiceApi.QUERY_ALL_FILMS,
 								field(FilmsConnection.FIELD_FILMS,
 										field(Film.FIELD_TITLE),
-										field(Film.FIELD_PLANETCONNECTION,
+										field(Film.FIELD_PLANET_CONNECTION,
 												field(PlanetsConnection.FIELD_PLANETS,
 														field(Planet.FIELD_NAME)
 												)
 										)
 								)
 						),
-						field(StarWarsServiceApi.QUERY_ALLPEOPLE,
+						field(StarWarsServiceApi.QUERY_ALL_PEOPLE,
 								field(PeopleConnection.FIELD_PEOPLE,
 										field(Person.FIELD_NAME),
 										field(Person.FIELD_HOMEWORLD,
@@ -55,7 +55,7 @@ public class StarWarsServiceTest {
 		assertThat(response.hasData()).isTrue();
 		assertThat(response.hasError()).isFalse();
 
-		var filmPlanetMap = response.getObject(FilmsConnection.class, StarWarsServiceApi.QUERY_ALLFILMS)
+		var filmPlanetMap = response.getObject(FilmsConnection.class, StarWarsServiceApi.QUERY_ALL_FILMS)
 				.getFilms()
 				.stream()
 				.collect(Collectors.toMap(
@@ -67,7 +67,7 @@ public class StarWarsServiceTest {
 								.collect(Collectors.toSet())
 				));
 
-		var peoplePlanetMap = response.getObject(PeopleConnection.class, StarWarsServiceApi.QUERY_ALLPEOPLE)
+		var peoplePlanetMap = response.getObject(PeopleConnection.class, StarWarsServiceApi.QUERY_ALL_PEOPLE)
 				.getPeople()
 				.stream()
 				.collect(Collectors.toMap(

@@ -1,0 +1,77 @@
+"A user"
+type User {
+    "user id"
+    id: ID!
+    "users name"
+    name: String!
+    "users birthday (yyyy-MM-dd)"
+    birthday: String!
+}
+
+"A user event"
+type UserEvent {
+    "unique user event id"
+    eventId: ID!
+    "event type"
+    eventType: EventType!
+    "affected user"
+    user: User!
+}
+
+"Mutation root"
+type Mutation {
+    "Create a new user"
+    createUser(
+        "data for user to be created"
+        user: CreateUpdateUserInput!
+    ): User!
+    "Deletes an existing user"
+    deleteUser(
+        "id of user to be deleted"
+        id: ID!
+    ): User!
+    "Updates an existing user"
+    updateUser(
+        "data for user to be updated"
+        user: CreateUpdateUserInput!,
+        "id of user to be updated"
+        id: ID!
+    ): User!
+}
+
+"Query root"
+type Query {
+    "Get all users"
+    allUsers: [User!]!
+    "Get a user by id"
+    user(
+        "user id to search for"
+        id: ID!
+    ): User
+}
+
+"Subscription root"
+type Subscription {
+    "Subscribes to user events"
+    userEvents(
+        "optional event type to filter for"
+        eventType: EventType,
+        "optional user id to filter for"
+        userId: String
+    ): UserEvent!
+}
+
+"Event type"
+enum EventType {
+    CREATED
+    DELETED
+    UPDATED
+}
+
+"Input for creating or updating a user"
+input CreateUpdateUserInput {
+    "users name"
+    name: String!
+    "users birthday (yyyy-MM-dd)"
+    birthday: String!
+}
