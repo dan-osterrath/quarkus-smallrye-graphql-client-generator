@@ -4,7 +4,6 @@
 <#-- @ftlvariable name="generationDate" type="java.time.ZonedDateTime" -->
 <#-- @ftlvariable name="typeDefinition" type="graphql.language.EnumTypeDefinition" -->
 <#include "comments.ftl">
-<#include "types.ftl">
 package ${packageName};
 
 import org.eclipse.microprofile.graphql.NonNull;

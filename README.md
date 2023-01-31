@@ -52,11 +52,23 @@ connectivity issues.
 
 Create an interface annotated with `@GraphQLSchema` and provide a URI to the GraphQL schema:
 
- ```java MyGraphQLService.java
+```java MyGraphQLService.java
 @GraphQLSchema("resource:schema.graphql")
 interface MyGraphQLService {
 }
- ```
+```
+
+Optionally, you may add some dynamic GraphQL queries, that are validated at compile time:
+
+```java MyGraphQLService.java
+@GraphQLSchema("resource:schema.graphql")
+@GraphQLQuery(
+		identifier = "allUserNames",
+		value = "{ allUsers { name } }"
+)
+interface MyGraphQLService {
+}
+```
 
 During compilation the annotation processor will parse this schema at compile time and creates a Java interface for the
 API and all models in the same package as the annotated interface.
@@ -73,6 +85,10 @@ public interface MyGraphQLServiceApi {
 	String ARGUMENT_ALLUSERS_FILTER = "filter";
 
 	List<User> allUsers(Filter filter);
+
+	class DynamicQueries {
+		public final static String ALL_USER_NAMES = "{ allUsers { name } }";
+	}
 }
 ```
 
@@ -154,8 +170,19 @@ public class MyService {
 
 		return response.getList(User.class, MyGraphQLServiceApi.QUERY_ALLUSERS);
 	}
+	
+	public List<String> getAllUserNames() {
+		Response = client.executeSync(MyGraphQLServiceApi.DynamicQueries.ALL_USER_NAMES);
+        
+		return response.getList(User.class, MyGraphQLServiceApi.QUERY_ALLUSERS)
+				.stream()
+				.map(User::getName)
+				.collect(Collectors.toList());
+	}
 }
 ```
+
+### Using dynamic client with variables
 
 Configure the client in `application.properties`:
 

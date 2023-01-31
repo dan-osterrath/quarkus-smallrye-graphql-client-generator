@@ -18,6 +18,8 @@ import java.net.URI;
 import java.nio.charset.StandardCharsets;
 import java.util.Collection;
 import java.util.Set;
+import java.util.stream.Collectors;
+import java.util.stream.Stream;
 
 import static javax.tools.StandardLocation.CLASS_OUTPUT;
 
@@ -42,13 +44,19 @@ public class AnnotationProcessor extends AbstractProcessor {
 	}
 
 	private boolean generateClient(TypeElement typeElement) {
-		var graphQLSchemaAnnotation = typeElement.getAnnotation(GraphQLSchema.class);
 		var serviceName = typeElement.getSimpleName().toString() + "Api";
 		var packageName = typeElement.getEnclosingElement().toString();
+		var graphQLSchemaAnnotation = typeElement.getAnnotation(GraphQLSchema.class);
+		var graphQLQueryAnnotations = typeElement.getAnnotationsByType(GraphQLQuery.class);
 
 		var schemaString = readSchema(graphQLSchemaAnnotation.value(), typeElement);
+		var queries = Stream.of(graphQLQueryAnnotations)
+				.collect(Collectors.toMap(
+						GraphQLQuery::identifier,
+						GraphQLQuery::value
+				));
 
-		var generator = new Generator(schemaString, serviceName, packageName);
+		var generator = new Generator(schemaString, serviceName, packageName, queries);
 		try {
 			var sources = generator.generateJavaSources();
 			sources.forEach(this::writeSource);

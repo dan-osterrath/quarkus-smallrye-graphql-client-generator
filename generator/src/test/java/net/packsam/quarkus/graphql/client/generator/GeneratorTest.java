@@ -3,6 +3,7 @@ package net.packsam.quarkus.graphql.client.generator;
 import org.junit.jupiter.api.Test;
 
 import java.nio.charset.StandardCharsets;
+import java.util.Map;
 import java.util.Objects;
 
 import static org.assertj.core.api.Assertions.assertThat;
@@ -16,7 +17,11 @@ public class GeneratorTest {
 		var sources = new Generator(
 				schema,
 				"UserServiceApi",
-				packageName
+				packageName,
+				Map.of(
+						"allUserIds", "{ allUsers { id } }",
+						"allUserNames", "{ allUsers { name } }"
+				)
 		).generateJavaSources();
 
 		assertThat(sources).containsOnlyKeys(
@@ -36,7 +41,11 @@ public class GeneratorTest {
 		var sources = new Generator(
 				schema,
 				"StarWarsServiceApi",
-				packageName
+				packageName,
+				Map.of(
+						"allFilmsAndAllPeople",
+						"{ allFilms { films { title planetConnection { planets { name } } } } allPeople { people { name homeworld { name } } } }"
+				)
 		).generateJavaSources();
 
 		assertThat(sources).containsOnlyKeys(

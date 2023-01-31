@@ -3,6 +3,7 @@
 <#-- @ftlvariable name="generatorName" type="java.lang.String" -->
 <#-- @ftlvariable name="generationDate" type="java.time.ZonedDateTime" -->
 <#-- @ftlvariable name="typeDefinition" type="graphql.language.ObjectTypeDefinition" -->
+<#include "functions.ftl">
 <#include "comments.ftl">
 <#include "types.ftl">
 package ${packageName};
@@ -23,7 +24,7 @@ public class ${typeName} <#if typeDefinition.implements?? && typeDefinition.impl
 	/**
 	 * Field name for "<@description fieldDefinition />".
 	 */
-	public final static String FIELD_${fieldDefinition.name?upper_case} = "${fieldDefinition.name}";
+	public final static String FIELD_${toUpperSnakeCase(fieldDefinition.name)} = "${fieldDefinition.name}";
 
 </#list>
 <#list typeDefinition.fieldDefinitions as fieldDefinition>

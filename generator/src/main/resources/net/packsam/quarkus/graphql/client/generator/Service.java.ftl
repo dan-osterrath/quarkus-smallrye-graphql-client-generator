@@ -3,9 +3,11 @@
 <#-- @ftlvariable name="queryTypeName" type="java.lang.String" -->
 <#-- @ftlvariable name="mutationTypeName" type="java.lang.String" -->
 <#-- @ftlvariable name="subscriptionTypeName" type="java.lang.String" -->
+<#-- @ftlvariable name="parsedQueries" type="java.util.List<net.packsam.quarkus.graphql.client.generator.Generator.ParsedQuery>" -->
 <#-- @ftlvariable name="generatorName" type="java.lang.String" -->
 <#-- @ftlvariable name="generationDate" type="java.time.ZonedDateTime" -->
 <#-- @ftlvariable name="schema" type="graphql.schema.idl.TypeDefinitionRegistry" -->
+<#include "functions.ftl">
 <#include "comments.ftl">
 <#include "types.ftl">
 <#assign queries=schema.getType(queryTypeName)>
@@ -13,6 +15,7 @@
 <#assign subscriptions=schema.getType(subscriptionTypeName)>
 package ${packageName};
 
+import io.smallrye.graphql.client.core.*;
 import io.smallrye.graphql.client.typesafe.api.GraphQLClientApi;
 import io.smallrye.mutiny.Multi;
 import org.eclipse.microprofile.graphql.NonNull;
@@ -33,13 +36,13 @@ public interface ${serviceName} {
 	/**
 	 * Query name for "<@description query />".
 	 */
-	String QUERY_${query.name?upper_case} = "${query.name}";
+	String QUERY_${toUpperSnakeCase(query.name)} = "${query.name}";
 
 	<#list query.inputValueDefinitions as arg><#-- @ftlvariable name="arg" type="graphql.language.InputValueDefinition" -->
 	/**
 	  * Argument name for "<@description arg />" of query ${query.name}.
 	  */
-	String ARGUMENT_${query.name?upper_case}_${arg.name?upper_case} = "${arg.name}";
+	String ARGUMENT_${toUpperSnakeCase(query.name)}_${toUpperSnakeCase(arg.name)} = "${arg.name}";
 
 	</#list>
 </#list></#if>
@@ -47,13 +50,13 @@ public interface ${serviceName} {
 	/**
 	 * Mutation name for "<@description mutation />".
 	 */
-	String MUTATION_${mutation.name?upper_case} = "${mutation.name}";
+	String MUTATION_${toUpperSnakeCase(mutation.name)} = "${mutation.name}";
 
     <#list mutation.inputValueDefinitions as arg><#-- @ftlvariable name="arg" type="graphql.language.InputValueDefinition" -->
 	/**
 	 * Argument name for "<@description arg />" of mutation ${mutation.name}.
 	 */
-	String ARGUMENT_${mutation.name?upper_case}_${arg.name?upper_case} = "${arg.name}";
+	String ARGUMENT_${toUpperSnakeCase(mutation.name)}_${toUpperSnakeCase(arg.name)} = "${arg.name}";
 
     </#list>
 </#list></#if>
@@ -61,13 +64,13 @@ public interface ${serviceName} {
 	/**
 	 * Subscription name for "<@description subscription />".
 	 */
-	String SUBSCRIPTION_${subscription.name?upper_case} = "${subscription.name}";
+	String SUBSCRIPTION_${toUpperSnakeCase(subscription.name)} = "${subscription.name}";
 
     <#list subscription.inputValueDefinitions as arg><#-- @ftlvariable name="arg" type="graphql.language.InputValueDefinition" -->
 	/**
 	 * Argument name for "<@description arg />" of subscription ${subscription.name}.
 	 */
-	String ARGUMENT_${subscription.name?upper_case}_${arg.name?upper_case} = "${arg.name}";
+	String ARGUMENT_${toUpperSnakeCase(subscription.name)}_${toUpperSnakeCase(arg.name)} = "${arg.name}";
 
     </#list>
 </#list></#if>
@@ -86,5 +89,21 @@ public interface ${serviceName} {
 	<@javadoc subscription />
 	Multi${"<"}<@javaType subscription.type />${">"} ${subscription.name}(<@inputValueList subscription.inputValueDefinitions />);
 
-	</#list></#if>
+</#list></#if>
+
+<#if queries?has_content>
+	/**
+	 * Dynamic GraphQL queries to be used with {@link io.smallrye.graphql.client.dynamic.api.DynamicGraphQLClient}.
+	 * These queries are validated at build time with the given GraphQL schema, so it is safe to use them as long as the
+	 * GraphQL schema is compatible with the used endpoint.
+	 */
+	class DynamicQueries {
+	<#list parsedQueries as q><#-- @ftlvariable name="subscription" type="net.packsam.quarkus.graphql.client.generator.Generator.ParsedQuery" -->
+		/**
+		 * Query for "${q.identifier}.
+		 */
+	    public static String ${toUpperSnakeCase(q.identifier)} = "${q.singleLineQuery}";
+	</#list>
+	}
+</#if>
 }
