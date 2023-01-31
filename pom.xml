@@ -24,20 +24,20 @@
 		<maven.compiler.release>11</maven.compiler.release>
 		<maven.compiler.parameters>true</maven.compiler.parameters>
 
-		<quarkus.version>2.15.0.Final</quarkus.version>
-		<graphql-java.version>19.2</graphql-java.version>
+		<quarkus.version>2.16.0.Final</quarkus.version>
+		<graphql-java.version>20.0</graphql-java.version>
 		<lombok.version>1.18.24</lombok.version>
 		<google-auto-service.version>1.0.1</google-auto-service.version>
 		<commons-io.version>2.11.0</commons-io.version>
-		<freemarker.version>2.3.31</freemarker.version>
+		<freemarker.version>2.3.32</freemarker.version>
 		<guava.version>31.1-jre</guava.version>
-		<assertj-core.version>3.23.1</assertj-core.version>
+		<assertj-core.version>3.24.2</assertj-core.version>
 
 		<maven.version>3.8.6</maven.version>
 		<quarkus-plugin.version>${quarkus.version}</quarkus-plugin.version>
 		<maven-compiler-plugin.version>3.10.1</maven-compiler-plugin.version>
-		<maven-surefire-plugin.version>3.0.0-M7</maven-surefire-plugin.version>
-		<maven-failsafe-plugin.version>3.0.0-M7</maven-failsafe-plugin.version>
+		<maven-surefire-plugin.version>3.0.0-M8</maven-surefire-plugin.version>
+		<maven-failsafe-plugin.version>3.0.0-M8</maven-failsafe-plugin.version>
 		<maven-javadoc-plugin.version>3.4.1</maven-javadoc-plugin.version>
 		<maven-clean-plugin.version>3.2.0</maven-clean-plugin.version>
 		<maven-source-plugin.version>3.2.1</maven-source-plugin.version>
