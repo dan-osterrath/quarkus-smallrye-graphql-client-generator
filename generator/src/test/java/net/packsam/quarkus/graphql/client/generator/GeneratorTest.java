@@ -31,8 +31,6 @@ public class GeneratorTest {
 				packageName + ".UserEvent",
 				packageName + ".UserServiceApi"
 		);
-
-		System.out.println(sources.get(packageName + ".UserServiceApi"));
 	}
 
 	@Test
@@ -105,8 +103,6 @@ public class GeneratorTest {
 				packageName + ".VehiclesConnection",
 				packageName + ".VehiclesEdge"
 		);
-
-		System.out.println(sources.get(packageName + ".StarWarsServiceApi"));
 	}
 
 	private String readSchema(String schemaResourceName) {
