@@ -6,8 +6,6 @@ import javax.annotation.processing.AbstractProcessor;
 import javax.annotation.processing.Processor;
 import javax.annotation.processing.RoundEnvironment;
 import javax.annotation.processing.SupportedAnnotationTypes;
-import javax.annotation.processing.SupportedSourceVersion;
-import javax.lang.model.SourceVersion;
 import javax.lang.model.element.TypeElement;
 import javax.lang.model.util.Elements;
 import javax.tools.Diagnostic;
@@ -26,7 +24,6 @@ import static javax.tools.StandardLocation.CLASS_OUTPUT;
 /**
  * Annotation processor for creating a Quarkus SmallRye GraphQL client.
  */
-@SupportedSourceVersion(SourceVersion.RELEASE_11)
 @AutoService(Processor.class)
 @SupportedAnnotationTypes({
 		"net.packsam.quarkus.graphql.client.generator.GraphQLSchema"
