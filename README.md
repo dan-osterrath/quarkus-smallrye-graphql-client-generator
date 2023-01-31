@@ -172,13 +172,13 @@ public class MyService {
 	}
 	
 	public List<String> getAllUserNames() {
-        Response = client.executeSync(MyGraphQLServiceApi.DynamicQueries.ALL_USER_NAMES);
-
-        return response.getList(User.class, MyGraphQLServiceApi.QUERY_ALLUSERS)
-                .stream()
-                .map(User::getName)
-                .collect(Collectors.toList());
-    }
+		Response = client.executeSync(MyGraphQLServiceApi.DynamicQueries.ALL_USER_NAMES);
+        
+		return response.getList(User.class, MyGraphQLServiceApi.QUERY_ALLUSERS)
+				.stream()
+				.map(User::getName)
+				.collect(Collectors.toList());
+	}
 }
 ```
 
