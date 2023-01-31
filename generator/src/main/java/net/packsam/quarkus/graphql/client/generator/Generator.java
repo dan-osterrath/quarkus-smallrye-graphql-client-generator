@@ -1,14 +1,8 @@
 package net.packsam.quarkus.graphql.client.generator;
 
-import freemarker.core.Environment;
 import freemarker.template.Configuration;
 import freemarker.template.Template;
-import freemarker.template.TemplateDirectiveBody;
-import freemarker.template.TemplateDirectiveModel;
-import freemarker.template.TemplateException;
 import freemarker.template.TemplateExceptionHandler;
-import freemarker.template.TemplateModel;
-import freemarker.template.TemplateModelException;
 import graphql.language.EnumTypeDefinition;
 import graphql.language.InputObjectTypeDefinition;
 import graphql.language.InterfaceTypeDefinition;
@@ -21,8 +15,6 @@ import graphql.schema.idl.TypeDefinitionRegistry;
 import lombok.RequiredArgsConstructor;
 import lombok.Value;
 
-import java.io.BufferedWriter;
-import java.io.IOException;
 import java.io.StringWriter;
 import java.time.ZonedDateTime;
 import java.util.LinkedHashMap;
@@ -131,9 +123,8 @@ class Generator {
 
 	private ParsedQuery parseQuery(String identifier, String query) {
 		try {
-			var document = Parser.parse(query);
-			var documentFactoryString = DocumentJavaBuilder.build(document);
-			return new ParsedQuery(identifier, query, documentFactoryString);
+			Parser.parse(query);
+			return new ParsedQuery(identifier, query);
 		} catch (Exception e) {
 			throw new GeneratorException("Could not parse GraphQL query \"" + query + "\": " + e.getMessage(), e);
 		}
@@ -220,40 +211,14 @@ class Generator {
 		}
 	}
 
-	private class ToUpperSnakeCase implements TemplateDirectiveModel {
-		@Override
-		public void execute(Environment env, Map params, TemplateModel[] loopVars, TemplateDirectiveBody body) throws TemplateException, IOException {
-			if (!params.isEmpty()) {
-				throw new TemplateModelException(
-						"This directive doesn't allow parameters.");
-			}
-			if (loopVars.length != 0) {
-				throw new TemplateModelException(
-						"This directive doesn't allow loop variables.");
-			}
-
-			if (body != null) {
-				body.render(new BufferedWriter(env.getOut()) {
-					@Override
-					public void write(String s) throws IOException {
-						super.write(camelCaseToUpperSnakeCase(s));
-					}
-
-					private String camelCaseToUpperSnakeCase(String s) {
-						return s.replaceAll("([a-z])([A-Z])", "$1_$2").toUpperCase();
-					}
-				});
-			} else {
-				throw new RuntimeException("missing body");
-			}
-		}
-	}
-
 	@Value
 	public static class ParsedQuery {
 		String identifier;
 		String query;
-		String document;
+
+		public String getSingleLineQuery() {
+			return query.replaceAll("\\s+", " ");
+		}
 	}
 
 	@Value

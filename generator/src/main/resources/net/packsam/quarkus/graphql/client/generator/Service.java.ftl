@@ -92,13 +92,17 @@ public interface ${serviceName} {
 </#list></#if>
 
 <#if queries?has_content>
+	/**
+	 * Dynamic GraphQL queries to be used with {@link io.smallrye.graphql.client.dynamic.api.DynamicGraphQLClient}.
+	 * These queries are validated at build time with the given GraphQL schema, so it is safe to use them as long as the
+	 * GraphQL schema is compatible with the used endpoint.
+	 */
 	public static class DynamicQueries {
 	<#list parsedQueries as q><#-- @ftlvariable name="subscription" type="net.packsam.quarkus.graphql.client.generator.Generator.ParsedQuery" -->
 		/**
-		 * Document for query "${q.identifier}.
-		 * <pre>{@code ${q.query} }</pre>".
+		 * Query for "${q.identifier}.
 		 */
-	    public final static Document ${toUpperSnakeCase(q.identifier)} = ${q.document};
+	    public final static String ${toUpperSnakeCase(q.identifier)} = "${q.singleLineQuery}";
 	</#list>
 	}
 </#if>
