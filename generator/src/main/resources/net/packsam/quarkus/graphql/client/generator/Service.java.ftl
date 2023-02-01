@@ -96,7 +96,7 @@ public interface ${serviceName} {
 
 </#list></#if>
 
-<#if queries?has_content>
+<#if parsedQueries?has_content>
 	/**
 	 * Dynamic GraphQL queries to be used with {@link io.smallrye.graphql.client.dynamic.api.DynamicGraphQLClient}.
 	 * These queries are validated at build time with the given GraphQL schema, so it is safe to use them as long as the
