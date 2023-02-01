@@ -1,5 +1,6 @@
 <#-- @ftlvariable name="serviceName" type="java.lang.String" -->
 <#-- @ftlvariable name="packageName" type="java.lang.String" -->
+<#-- @ftlvariable name="modelPackageName" type="java.lang.String" -->
 <#-- @ftlvariable name="queryTypeName" type="java.lang.String" -->
 <#-- @ftlvariable name="mutationTypeName" type="java.lang.String" -->
 <#-- @ftlvariable name="subscriptionTypeName" type="java.lang.String" -->
@@ -24,6 +25,10 @@ import java.util.List;
 
 import javax.annotation.processing.Generated;
 import javax.enterprise.context.ApplicationScoped;
+
+<#if modelPackageName != packageName>
+import ${modelPackageName}.*;
+</#if>
 
 @GraphQLClientApi(configKey = "${serviceName}")
 @ApplicationScoped

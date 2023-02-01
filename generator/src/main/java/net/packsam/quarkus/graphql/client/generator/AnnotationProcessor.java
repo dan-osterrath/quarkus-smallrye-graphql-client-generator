@@ -42,9 +42,12 @@ public class AnnotationProcessor extends AbstractProcessor {
 
 	private boolean generateClient(TypeElement typeElement) {
 		var serviceName = typeElement.getSimpleName().toString() + "Api";
-		var packageName = typeElement.getEnclosingElement().toString();
+		var defaultPackageName = typeElement.getEnclosingElement().toString();
 		var graphQLSchemaAnnotation = typeElement.getAnnotation(GraphQLSchema.class);
 		var graphQLQueryAnnotations = typeElement.getAnnotationsByType(GraphQLQuery.class);
+
+		var servicePackageName = getPackageName(graphQLSchemaAnnotation.targetPackage(), defaultPackageName);
+		var modelPackageName = getPackageName(graphQLSchemaAnnotation.targetModelPackage(), defaultPackageName);
 
 		var schemaString = readSchema(graphQLSchemaAnnotation.value(), typeElement);
 		var queries = Stream.of(graphQLQueryAnnotations)
@@ -53,7 +56,7 @@ public class AnnotationProcessor extends AbstractProcessor {
 						GraphQLQuery::value
 				));
 
-		var generator = new Generator(schemaString, serviceName, packageName, queries);
+		var generator = new Generator(schemaString, serviceName, servicePackageName, modelPackageName, queries);
 		try {
 			var sources = generator.generateJavaSources();
 			sources.forEach(this::writeSource);
@@ -65,6 +68,13 @@ public class AnnotationProcessor extends AbstractProcessor {
 			);
 			return false;
 		}
+	}
+
+	private String getPackageName(String packageName, String defaultPackageName) {
+		if (packageName == null || packageName.isEmpty()) {
+			return defaultPackageName;
+		}
+		return packageName;
 	}
 
 	private void writeSource(String className, String content) {

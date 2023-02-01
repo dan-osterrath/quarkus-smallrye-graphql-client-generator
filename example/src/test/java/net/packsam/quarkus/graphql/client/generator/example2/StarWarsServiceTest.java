@@ -4,6 +4,12 @@ import io.quarkus.test.junit.QuarkusTest;
 import io.smallrye.graphql.client.GraphQLClient;
 import io.smallrye.graphql.client.core.OperationType;
 import io.smallrye.graphql.client.dynamic.api.DynamicGraphQLClient;
+import net.packsam.quarkus.graphql.client.generator.example2.model.Film;
+import net.packsam.quarkus.graphql.client.generator.example2.model.FilmsConnection;
+import net.packsam.quarkus.graphql.client.generator.example2.model.PeopleConnection;
+import net.packsam.quarkus.graphql.client.generator.example2.model.Person;
+import net.packsam.quarkus.graphql.client.generator.example2.model.Planet;
+import net.packsam.quarkus.graphql.client.generator.example2.model.PlanetsConnection;
 import org.junit.jupiter.api.Test;
 
 import javax.inject.Inject;

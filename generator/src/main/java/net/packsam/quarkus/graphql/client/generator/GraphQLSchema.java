@@ -23,4 +23,18 @@ public @interface GraphQLSchema {
 	 * @return schema location
 	 */
 	String value();
+
+	/**
+	 * Target package for the generated classes.
+	 *
+	 * @return package name
+	 */
+	String targetPackage() default "";
+
+	/**
+	 * Target package for the generated model classes.
+	 *
+	 * @return package name
+	 */
+	String targetModelPackage() default "";
 }

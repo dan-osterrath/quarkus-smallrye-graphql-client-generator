@@ -12,12 +12,14 @@ public class GeneratorTest {
 	@Test
 	public void testGeneratingUserService() throws GeneratorException {
 		var schema = readSchema("/user-service.graphqls");
-		var packageName = getClass().getPackage().getName() + ".example1";
+		var servicePackageName = getClass().getPackage().getName() + ".example1";
+		var modelPackageName = servicePackageName + ".model";
 
 		var sources = new Generator(
 				schema,
 				"UserServiceApi",
-				packageName,
+				servicePackageName,
+				modelPackageName,
 				Map.of(
 						"allUserIds", "{ allUsers { id } }",
 						"allUserNames", "{ allUsers { name } }"
@@ -25,23 +27,25 @@ public class GeneratorTest {
 		).generateJavaSources();
 
 		assertThat(sources).containsOnlyKeys(
-				packageName + ".CreateUpdateUserInput",
-				packageName + ".EventType",
-				packageName + ".User",
-				packageName + ".UserEvent",
-				packageName + ".UserServiceApi"
+				modelPackageName + ".CreateUpdateUserInput",
+				modelPackageName + ".EventType",
+				modelPackageName + ".User",
+				modelPackageName + ".UserEvent",
+				servicePackageName + ".UserServiceApi"
 		);
 	}
 
 	@Test
 	public void testGeneratingStarWarsService() throws GeneratorException {
 		var schema = readSchema("/star-wars-service.graphqls");
-		var packageName = getClass().getPackage().getName() + ".example2";
+		var servicePackageName = getClass().getPackage().getName() + ".example2";
+		var modelPackageName = servicePackageName + ".model";
 
 		var sources = new Generator(
 				schema,
 				"StarWarsServiceApi",
-				packageName,
+				servicePackageName,
+				servicePackageName + ".model",
 				Map.of(
 						"allFilmsAndAllPeople",
 						"{ allFilms { films { title planetConnection { planets { name } } } } allPeople { people { name homeworld { name } } } }"
@@ -49,59 +53,59 @@ public class GeneratorTest {
 		).generateJavaSources();
 
 		assertThat(sources).containsOnlyKeys(
-				packageName + ".Film",
-				packageName + ".FilmCharactersConnection",
-				packageName + ".FilmCharactersEdge",
-				packageName + ".FilmPlanetsConnection",
-				packageName + ".FilmPlanetsEdge",
-				packageName + ".FilmsConnection",
-				packageName + ".FilmsEdge",
-				packageName + ".FilmSpeciesConnection",
-				packageName + ".FilmSpeciesEdge",
-				packageName + ".FilmStarshipsConnection",
-				packageName + ".FilmStarshipsEdge",
-				packageName + ".FilmVehiclesConnection",
-				packageName + ".FilmVehiclesEdge",
-				packageName + ".Node",
-				packageName + ".PageInfo",
-				packageName + ".PeopleConnection",
-				packageName + ".PeopleEdge",
-				packageName + ".Person",
-				packageName + ".PersonFilmsConnection",
-				packageName + ".PersonFilmsEdge",
-				packageName + ".PersonStarshipsConnection",
-				packageName + ".PersonStarshipsEdge",
-				packageName + ".PersonVehiclesConnection",
-				packageName + ".PersonVehiclesEdge",
-				packageName + ".Planet",
-				packageName + ".PlanetFilmsConnection",
-				packageName + ".PlanetFilmsEdge",
-				packageName + ".PlanetResidentsConnection",
-				packageName + ".PlanetResidentsEdge",
-				packageName + ".PlanetsConnection",
-				packageName + ".PlanetsEdge",
-				packageName + ".Species",
-				packageName + ".SpeciesConnection",
-				packageName + ".SpeciesEdge",
-				packageName + ".SpeciesFilmsConnection",
-				packageName + ".SpeciesFilmsEdge",
-				packageName + ".SpeciesPeopleConnection",
-				packageName + ".SpeciesPeopleEdge",
-				packageName + ".Starship",
-				packageName + ".StarshipFilmsConnection",
-				packageName + ".StarshipFilmsEdge",
-				packageName + ".StarshipPilotsConnection",
-				packageName + ".StarshipPilotsEdge",
-				packageName + ".StarshipsConnection",
-				packageName + ".StarshipsEdge",
-				packageName + ".StarWarsServiceApi",
-				packageName + ".Vehicle",
-				packageName + ".VehicleFilmsConnection",
-				packageName + ".VehicleFilmsEdge",
-				packageName + ".VehiclePilotsConnection",
-				packageName + ".VehiclePilotsEdge",
-				packageName + ".VehiclesConnection",
-				packageName + ".VehiclesEdge"
+				modelPackageName + ".Film",
+				modelPackageName + ".FilmCharactersConnection",
+				modelPackageName + ".FilmCharactersEdge",
+				modelPackageName + ".FilmPlanetsConnection",
+				modelPackageName + ".FilmPlanetsEdge",
+				modelPackageName + ".FilmsConnection",
+				modelPackageName + ".FilmsEdge",
+				modelPackageName + ".FilmSpeciesConnection",
+				modelPackageName + ".FilmSpeciesEdge",
+				modelPackageName + ".FilmStarshipsConnection",
+				modelPackageName + ".FilmStarshipsEdge",
+				modelPackageName + ".FilmVehiclesConnection",
+				modelPackageName + ".FilmVehiclesEdge",
+				modelPackageName + ".Node",
+				modelPackageName + ".PageInfo",
+				modelPackageName + ".PeopleConnection",
+				modelPackageName + ".PeopleEdge",
+				modelPackageName + ".Person",
+				modelPackageName + ".PersonFilmsConnection",
+				modelPackageName + ".PersonFilmsEdge",
+				modelPackageName + ".PersonStarshipsConnection",
+				modelPackageName + ".PersonStarshipsEdge",
+				modelPackageName + ".PersonVehiclesConnection",
+				modelPackageName + ".PersonVehiclesEdge",
+				modelPackageName + ".Planet",
+				modelPackageName + ".PlanetFilmsConnection",
+				modelPackageName + ".PlanetFilmsEdge",
+				modelPackageName + ".PlanetResidentsConnection",
+				modelPackageName + ".PlanetResidentsEdge",
+				modelPackageName + ".PlanetsConnection",
+				modelPackageName + ".PlanetsEdge",
+				modelPackageName + ".Species",
+				modelPackageName + ".SpeciesConnection",
+				modelPackageName + ".SpeciesEdge",
+				modelPackageName + ".SpeciesFilmsConnection",
+				modelPackageName + ".SpeciesFilmsEdge",
+				modelPackageName + ".SpeciesPeopleConnection",
+				modelPackageName + ".SpeciesPeopleEdge",
+				modelPackageName + ".Starship",
+				modelPackageName + ".StarshipFilmsConnection",
+				modelPackageName + ".StarshipFilmsEdge",
+				modelPackageName + ".StarshipPilotsConnection",
+				modelPackageName + ".StarshipPilotsEdge",
+				modelPackageName + ".StarshipsConnection",
+				modelPackageName + ".StarshipsEdge",
+				servicePackageName + ".StarWarsServiceApi",
+				modelPackageName + ".Vehicle",
+				modelPackageName + ".VehicleFilmsConnection",
+				modelPackageName + ".VehicleFilmsEdge",
+				modelPackageName + ".VehiclePilotsConnection",
+				modelPackageName + ".VehiclePilotsEdge",
+				modelPackageName + ".VehiclesConnection",
+				modelPackageName + ".VehiclesEdge"
 		);
 	}
 

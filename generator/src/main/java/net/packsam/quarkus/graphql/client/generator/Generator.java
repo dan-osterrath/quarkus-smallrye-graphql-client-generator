@@ -29,7 +29,8 @@ class Generator {
 
 	private final String serviceName;
 
-	private final String packageName;
+	private final String servicePackageName;
+	private final String modelPackageName;
 
 	private final Map<String, String> queries;
 
@@ -63,12 +64,13 @@ class Generator {
 		var generatedFiles = new LinkedHashMap<String, String>();
 
 		generatedFiles.put(
-				packageName + "." + serviceName,
+				servicePackageName + "." + serviceName,
 				generateService(
 						templates.getServiceTemplate(),
 						schema,
 						serviceName,
-						packageName,
+						servicePackageName,
+						modelPackageName,
 						queryTypeName,
 						mutationTypeName,
 						subscriptionTypeName,
@@ -79,8 +81,8 @@ class Generator {
 		for (var typeDefinition : schema.getTypes(InputObjectTypeDefinition.class)) {
 			var typeName = typeDefinition.getName();
 			generatedFiles.put(
-					packageName + "." + typeName,
-					generateType(templates.getInputTemplate(), typeDefinition, typeName, packageName)
+					modelPackageName + "." + typeName,
+					generateType(templates.getInputTemplate(), typeDefinition, typeName, modelPackageName)
 			);
 		}
 
@@ -90,24 +92,24 @@ class Generator {
 				continue;
 			}
 			generatedFiles.put(
-					packageName + "." + typeName,
-					generateType(templates.getObjectTemplate(), typeDefinition, typeName, packageName)
+					modelPackageName + "." + typeName,
+					generateType(templates.getObjectTemplate(), typeDefinition, typeName, modelPackageName)
 			);
 		}
 
 		for (var typeDefinition : schema.getTypes(InterfaceTypeDefinition.class)) {
 			var typeName = typeDefinition.getName();
 			generatedFiles.put(
-					packageName + "." + typeName,
-					generateType(templates.getInterfaceTemplate(), typeDefinition, typeName, packageName)
+					modelPackageName + "." + typeName,
+					generateType(templates.getInterfaceTemplate(), typeDefinition, typeName, modelPackageName)
 			);
 		}
 
 		for (var typeDefinition : schema.getTypes(EnumTypeDefinition.class)) {
 			var typeName = typeDefinition.getName();
 			generatedFiles.put(
-					packageName + "." + typeName,
-					generateType(templates.getEnumTemplate(), typeDefinition, typeName, packageName)
+					modelPackageName + "." + typeName,
+					generateType(templates.getEnumTemplate(), typeDefinition, typeName, modelPackageName)
 			);
 		}
 
@@ -135,6 +137,7 @@ class Generator {
 			TypeDefinitionRegistry schema,
 			String serviceName,
 			String packageName,
+			String modelPackageName,
 			String queryTypeName,
 			String mutationTypeName,
 			String subscriptionTypeName,
@@ -146,6 +149,7 @@ class Generator {
 						"schema", schema,
 						"serviceName", serviceName,
 						"packageName", packageName,
+						"modelPackageName", modelPackageName,
 						"queryTypeName", queryTypeName,
 						"mutationTypeName", mutationTypeName,
 						"subscriptionTypeName", subscriptionTypeName,
